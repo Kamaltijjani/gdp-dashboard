@@ -80,19 +80,20 @@ max_value = gdp_df['Year'].max()
 
 from_year, to_year = st.slider(
     'Which years are you interested in?',
-    min_value=min_value,
-    max_value=max_value,
-    value=[min_value, max_value])
+    min_value=int(min_value),
+    max_value=int(max_value),
+    value=[int(min_value), int(max_value)])
 
 countries = gdp_df['Country Code'].unique()
-
-if not len(countries):
-    st.warning("Select at least one country")
 
 selected_countries = st.multiselect(
     'Which countries would you like to view?',
     countries,
     ['DEU', 'FRA', 'GBR', 'BRA', 'MEX', 'JPN'])
+
+if not selected_countries:
+    st.info('Select at least one country to display GDP data.')
+    st.stop()
 
 ''
 ''
@@ -136,7 +137,7 @@ for i, country in enumerate(selected_countries):
         first_gdp = first_year[first_year['Country Code'] == country]['GDP'].iat[0] / 1000000000
         last_gdp = last_year[last_year['Country Code'] == country]['GDP'].iat[0] / 1000000000
 
-        if math.isnan(first_gdp):
+        if not math.isfinite(first_gdp) or first_gdp <= 0 or not math.isfinite(last_gdp):
             growth = 'n/a'
             delta_color = 'off'
         else:
@@ -145,7 +146,7 @@ for i, country in enumerate(selected_countries):
 
         st.metric(
             label=f'{country} GDP',
-            value=f'{last_gdp:,.0f}B',
+            value=f'${last_gdp:,.0f}B' if math.isfinite(last_gdp) else 'No data',
             delta=growth,
             delta_color=delta_color
         )
