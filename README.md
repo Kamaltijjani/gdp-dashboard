@@ -1,19 +1,28 @@
-# :earth_americas: GDP dashboard template
+# GDP Dashboard
 
-A simple Streamlit app showing the GDP of different countries in the world.
+A Streamlit dashboard for exploring the bundled World Bank GDP dataset by country and year (1960–2022). Values are current US dollars; this is historical data, not a live feed.
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://gdp-dashboard-template.streamlit.app/)
+## Run locally
 
-### How to run it on your own machine
+Requires Python 3.10 or newer.
 
-1. Install the requirements
+```sh
+python -m venv .venv
+# Linux/macOS:
+source .venv/bin/activate
+# Windows PowerShell instead: .venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m streamlit run streamlit_app.py
+```
 
-   ```
-   $ pip install -r requirements.txt
-   ```
+Open the local URL printed by Streamlit. Select a year range and one or more country codes. The chart compares GDP over time; cards show the final year's GDP in billions and the final/initial GDP ratio (not a percentage).
 
-2. Run the app
+Missing values display “No data”. A missing or zero starting value has no growth ratio. An empty country selection prompts you to select a country.
 
-   ```
-   $ streamlit run streamlit_app.py
-   ```
+## Files
+
+- `streamlit_app.py`: application
+- `data/gdp_data.csv`: bundled historical dataset
+- `requirements.txt`: Python dependencies
+
+Some World Bank country codes represent regions or income groups. Missing observations are not treated as zero. See `LICENSE` for licensing.
