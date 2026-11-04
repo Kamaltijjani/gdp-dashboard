@@ -15,7 +15,7 @@ python -m pip install -r requirements.txt
 python -m streamlit run streamlit_app.py
 ```
 
-Open the local URL printed by Streamlit. Select a year range and one or more country codes. The chart compares GDP over time; cards show the final year's GDP in billions and the final/initial GDP ratio (not a percentage).
+Open the local URL printed by Streamlit. Select a year range and one or more country codes. The chart compares GDP over time; cards show the final year's GDP in billions and the final/initial GDP ratio (not a percentage or signed change). Ratio indicators deliberately use neutral colouring so a positive ratio such as `0.80x` is not mistaken for an increase.
 
 Missing values display “No data”. A missing or zero starting value has no growth ratio. An empty country selection prompts you to select a country.
 
