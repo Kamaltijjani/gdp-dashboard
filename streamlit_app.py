@@ -142,7 +142,7 @@ for i, country in enumerate(selected_countries):
             delta_color = 'off'
         else:
             growth = f'{last_gdp / first_gdp:,.2f}x'
-            delta_color = 'normal'
+            delta_color = 'off'  # Ratios are unsigned; directional colour would be misleading.
 
         st.metric(
             label=f'{country} GDP',
