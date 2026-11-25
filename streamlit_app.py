@@ -134,8 +134,11 @@ for i, country in enumerate(selected_countries):
     col = cols[i % len(cols)]
 
     with col:
-        first_gdp = first_year[first_year['Country Code'] == country]['GDP'].iat[0] / 1000000000
-        last_gdp = last_year[last_year['Country Code'] == country]['GDP'].iat[0] / 1000000000
+        first_values = first_year[first_year['Country Code'] == country]['GDP'].dropna()
+        last_values = last_year[last_year['Country Code'] == country]['GDP'].dropna()
+
+        first_gdp = first_values.iloc[0] / 1000000000 if not first_values.empty else float('nan')
+        last_gdp = last_values.iloc[0] / 1000000000 if not last_values.empty else float('nan')
 
         if not math.isfinite(first_gdp) or first_gdp <= 0 or not math.isfinite(last_gdp):
             growth = 'n/a'
